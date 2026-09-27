@@ -96,3 +96,15 @@ find "$dir" -maxdepth 1 -name "*.$ext" -print0 | tar --null -cvf "$archive" --fi
 echo "Создан архив $archive"
 
 
+#!/bin/sh
+# Задача 9: заменить 4 пробела на табуляцию
+
+# $1 — входной файл, $2 — выходной
+in="$1"
+out="$2"
+
+# sed заменяет 4 пробела на \t (табуляция)
+sed 's/    /\t/g' "$in" > "$out"
+echo "Готово: $out"
+
+
