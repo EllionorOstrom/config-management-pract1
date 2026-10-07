@@ -185,3 +185,75 @@ maintainers:
    ```
 
 **Вывод**: `npm` просто автоматизирует эти шаги. Без него всё делается вручную.
+
+
+---
+
+## Задача 3. Graphviz-граф зависимостей
+
+### Граф зависимостей matplotlib
+
+**Код DOT**:
+
+```dot
+digraph matplotlib {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightblue];
+    matplotlib [fillcolor=orange];
+    
+    matplotlib -> contourpy;
+    matplotlib -> cycler;
+    matplotlib -> fonttools;
+    matplotlib -> kiwisolver;
+    matplotlib -> numpy;
+    matplotlib -> packaging;
+    matplotlib -> pillow;
+    matplotlib -> pyparsing;
+    matplotlib -> "python-dateutil";
+}
+```
+
+**Изображение**:
+
+![Граф matplotlib](matplotlib.png)
+
+### Граф зависимостей express
+
+**Код DOT**:
+
+```dot
+digraph express {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightgreen];
+    express [fillcolor=orange];
+    
+    express -> qs;
+    express -> depd;
+    express -> etag;
+    express -> once;
+    express -> send;
+    express -> vary;
+    express -> debug;
+    express -> fresh;
+    express -> cookie;
+    express -> router;
+    express -> accepts;
+    express -> "type-is";
+    express -> parseurl;
+    express -> statuses;
+    express -> encodeurl;
+    express -> "mime-types";
+    express -> "proxy-addr";
+    express -> "body-parser";
+    express -> "escape-html";
+    express -> "http-errors";
+    express -> "on-finished";
+    express -> "content-type";
+    express -> finalhandler;
+    express -> "range-parser";
+}
+```
+
+**Изображение**:
+
+![Граф express](express.png)
