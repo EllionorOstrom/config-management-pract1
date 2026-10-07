@@ -215,7 +215,7 @@ digraph matplotlib {
 
 **Изображение**:
 
-![Граф matplotlib](https://github.com/EllionorOstrom/config-management-pract1/blob/main/matplotlib.png)
+[![Граф matplotlib](https://github.com/EllionorOstrom/config-management-pract1/blob/main/matplotlib.png)](https://github.com/EllionorOstrom/config-management-pract1/blob/0d5438114d6473a761880fb07263b93e73eb5447/matplotlib.png)
 
 ### Граф зависимостей express
 
