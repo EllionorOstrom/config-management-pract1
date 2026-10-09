@@ -1,5 +1,7 @@
 """Parser of command lines with support for quoted arguments."""
 
+import os
+
 QUOTES = "'\""
 
 
@@ -49,6 +51,7 @@ def parse(line):
     """Split a line into tokens.
 
     Spaces separate tokens, except inside single or double quotes.
+    Environment variables (like $HOME) are expanded.
     Raises ParseError if a quote is not closed.
     """
     scanner = _Scanner()
@@ -57,4 +60,4 @@ def parse(line):
     if scanner.quote:
         raise ParseError(f"unclosed quote {scanner.quote}")
     scanner.flush()
-    return scanner.tokens
+    return [os.path.expandvars(token) for token in scanner.tokens]
