@@ -4,6 +4,7 @@ import argparse
 import sys
 
 from src.shell import Shell
+from src.vfs import Vfs, VfsError
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -40,7 +41,12 @@ def main(argv=None):
     """Run the emulator and return the process exit code."""
     args = build_arg_parser().parse_args(argv)
     print_debug(args)
-    shell = Shell()
+    try:
+        vfs = Vfs.from_zip(args.vfs) if args.vfs else None
+    except VfsError as error:
+        print(f"vfs error: {error}", file=sys.stderr)
+        return EXIT_ERROR
+    shell = Shell(vfs=vfs)
     if args.script and not shell.run_script(args.script):
         return EXIT_ERROR
     if shell.running:

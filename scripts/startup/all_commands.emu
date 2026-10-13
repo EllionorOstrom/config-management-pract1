@@ -1,0 +1,15 @@
+# Test of all commands implemented in stages 1-3
+# Stage 1: stubs, quotes, errors
+ls
+ls -l "my documents" 'second arg'
+cd /home/user
+cd one two
+unknown_command arg
+ls "unclosed
+exit 1
+
+# Stage 3: service command that shows the loaded VFS
+vfs-info
+vfs-info extra
+
+exit

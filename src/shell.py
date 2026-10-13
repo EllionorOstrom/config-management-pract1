@@ -19,14 +19,19 @@ class ShellError(Exception):
 class Shell:
     """Emulator of a UNIX-like command line."""
 
-    def __init__(self, out=None):
-        """Create a shell that prints to ``out`` (stdout by default)."""
+    def __init__(self, out=None, vfs=None):
+        """Create a shell printing to ``out`` (stdout by default).
+
+        ``vfs`` is the loaded virtual file system, or None.
+        """
         self.out = out if out is not None else sys.stdout
+        self.vfs = vfs
         self.running = True
         self.commands = {
             "ls": self.cmd_ls,
             "cd": self.cmd_cd,
             "exit": self.cmd_exit,
+            "vfs-info": self.cmd_vfs_info,
         }
 
     def write(self, text):
@@ -115,3 +120,15 @@ class Shell:
         """Leave the shell."""
         self._check_args(args, NO_ARGS)
         self.running = False
+
+    def cmd_vfs_info(self, args):
+        """Service command: show the loaded VFS as a tree."""
+        self._check_args(args, NO_ARGS)
+        if self.vfs is None:
+            self.write("VFS is not loaded")
+            return
+        dirs, files = self.vfs.count()
+        self.write(f"VFS source: {self.vfs.source}")
+        self.write(f"directories: {dirs}, files: {files}")
+        for line in self.vfs.tree_lines():
+            self.write(line)

@@ -2,6 +2,7 @@
 chcp 65001 >nul
 set PYTHONUTF8=1
 cd /d "%~dp0.."
+python scripts\make_vfs.py
 
 echo ===== 1. --vfs and --script =====
 python -m src.emulator --vfs vfs\minimal.zip --script scripts\startup\basic.emu
