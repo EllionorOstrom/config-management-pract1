@@ -1,0 +1,12 @@
+# Start script: comment lines are shown and skipped
+ls
+ls -l "my documents" 'second arg'
+cd /home/user
+
+# Errors do not stop the script
+cd one two
+unknown_command arg
+ls "unclosed
+exit 1
+# The last command ends the emulator
+exit

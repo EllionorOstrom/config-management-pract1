@@ -8,6 +8,8 @@ from src.cmdparser import ParseError, parse
 
 NO_ARGS = 0
 MAX_CD_ARGS = 1
+COMMENT_MARK = "#"
+SCRIPT_ENCODING = "utf-8-sig"
 
 
 class ShellError(Exception):
@@ -67,6 +69,31 @@ class Shell:
             except KeyboardInterrupt:
                 self.write("")
                 continue
+            self.execute(line)
+
+    def run_script(self, path):
+        """Run a start script, echoing both input and output.
+
+        Returns False if the script file cannot be read.
+        """
+        try:
+            with open(path, encoding=SCRIPT_ENCODING) as file:
+                lines = file.read().splitlines()
+        except (OSError, UnicodeDecodeError) as error:
+            self.write(f"script error: cannot read {path}: {error}")
+            return False
+        for line in lines:
+            if not self.running:
+                break
+            self._run_script_line(line)
+        return True
+
+    def _run_script_line(self, line):
+        """Show one script line as typed input and run it."""
+        if not line.strip():
+            return
+        self.write(self.prompt() + line)
+        if not line.strip().startswith(COMMENT_MARK):
             self.execute(line)
 
     @staticmethod
